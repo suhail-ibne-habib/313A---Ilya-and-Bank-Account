@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+int digits_count( int n ){
+    int count = 0;
+    while( n ){
+        count++;
+        n /= 10;
+    }
+
+    return count;
+}
+
+void intoArray( int n, int arr[], int length ){
+
+    for( int i = length-1; i >= 0; i-- ){
+        int remainder = n%10;
+        n /= 10;
+        arr[i] = remainder*-1;
+    }
+}
+
+int exchange_digits( int arr[], int size ){
+
+    if( arr[size-1] < arr[size-2] ){
+        arr[size-2] = arr[size-1];
+    }
+
+    int num = 0;
+
+    for( int i = 0; i<size-1; i++ ){
+        num = num*10 + arr[i];
+    }
+
+    return num;
+}
+
+int main(){
+    int statement = 0;
+    scanf( "%d", &statement );
+
+    if( statement < 0 ){
+
+        int size = digits_count( statement );
+        int digits[size];
+        intoArray( statement, digits, size );
+
+        statement = -(exchange_digits(digits, size));
+
+    }
+
+    printf( "%d", statement );
+
+    return 0;
+}
